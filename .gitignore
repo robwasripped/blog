@@ -1,0 +1,5 @@
+vendor
+var
+phpunit.xml
+/app/bootstrap.php.cache
+/app/config/parameters.yml
