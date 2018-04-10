@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <header>
+        <h1><a href="{{ path('homepage') }}">Robert Treacy</a></h1>
+        <nav>
+        </nav>
+    </header>
+    <section>
+        {% block content %}{% endblock %}
+    </section>
+{% endblock %}
