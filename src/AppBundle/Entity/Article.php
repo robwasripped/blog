@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Input\EditArticle;
 
 /**
  * Article
@@ -46,9 +47,9 @@ class Article
     private $content;
 
     /**
-     * @var \DateTime
+     * @var \DateTimeImmutable
      *
-     * @ORM\Column(name="created_at", type="datetimetz")
+     * @ORM\Column(name="created_at", type="datetimetz_immutable")
      */
     private $createdAt;
 
@@ -58,6 +59,26 @@ class Article
      * @ORM\Column(name="modified_at", type="datetimetz", nullable=true)
      */
     private $modifiedAt;
+    
+    private function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable;
+    }
+    
+    public static function createFromInput(EditArticle $articleInput): self
+    {
+        $article = new self;
+        $article->updateArticle($articleInput);
+        
+        return $article;
+    }
+    
+    public function updateArticle(EditArticle $articleInput)
+    {
+        $this->path = $articleInput->path;
+        $this->title = $articleInput->title;
+        $this->content = $articleInput->content;
+    }
 
     /**
      * Get id
@@ -67,6 +88,16 @@ class Article
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    public function setPath($path)
+    {
+        $this->path = $path;
     }
 
     /**
@@ -120,7 +151,7 @@ class Article
     /**
      * Get createdAt
      *
-     * @return \DateTime
+     * @return \DateTimeImmutable
      */
     public function getCreatedAt()
     {

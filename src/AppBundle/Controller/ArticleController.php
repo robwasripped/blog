@@ -9,7 +9,7 @@ use AppBundle\Entity\Article;
 class ArticleController extends Controller
 {
     /**
-     * @Route("/article/{path}")
+     * @Route("/article/{path}", name="view_article")
      */
     public function getAction(Article $article)
     {

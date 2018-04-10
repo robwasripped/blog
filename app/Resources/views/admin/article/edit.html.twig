@@ -1,0 +1,10 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}#{{ article.id }} | Edit{% endblock %}
+
+{% block body %}
+    <a href="{{ path("admin_list_articles") }}">Cancel</a>
+    <article>
+        {{ form(editArticleForm) }}
+    </article>
+{% endblock %}
