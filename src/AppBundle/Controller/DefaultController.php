@@ -25,7 +25,9 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request, int $page, int $per_page, EntityRepository $articleRepository)
     {
-        $articles = $articleRepository->findBy([], null, $per_page, $page - 1);
+        $articles = $articleRepository->findBy([
+            'status' => Article::STATUS_PUBLISHED,
+        ], null, $per_page, $page - 1);
         
         return $this->render('default/index.html.twig', [
             'articles' => $articles,
