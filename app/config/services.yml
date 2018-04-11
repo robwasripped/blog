@@ -16,6 +16,7 @@ services:
         bind:
             $articleRepository: '@app.repository.article'
             $entityManager: '@doctrine.orm.default_entity_manager'
+            $articleStatusWorkflow: '@state_machine.article'
             
 
     # makes classes in src/AppBundle available to be used as services

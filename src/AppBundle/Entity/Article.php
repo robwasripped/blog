@@ -15,6 +15,17 @@ use AppBundle\Input\EditArticle;
  */
 class Article
 {
+    const STATUS_NEW = 'new';
+    const STATUS_DRAFT = 'draft';
+    const STATUS_PUBLISHED = 'published';
+    const STATUS_ARCHIVED = 'archived';
+    
+    const STATUSES = [
+        self::STATUS_NEW,
+        self::STATUS_DRAFT,
+        self::STATUS_PUBLISHED,
+        self::STATUS_ARCHIVED,
+    ];
 
     /**
      * @var int
@@ -31,6 +42,13 @@ class Article
      * @ORM\Column(name="path", type="string", length=255)
      */
     private $path;
+    
+    /**
+     * @var string
+     * 
+     * @ORM\Column(name="status", type="string", length=16)
+     */
+    private $status = self::STATUS_NEW;
 
     /**
      * @var string
@@ -59,20 +77,20 @@ class Article
      * @ORM\Column(name="modified_at", type="datetimetz", nullable=true)
      */
     private $modifiedAt;
-    
+
     private function __construct()
     {
         $this->createdAt = new \DateTimeImmutable;
     }
-    
+
     public static function createFromInput(EditArticle $articleInput): self
     {
         $article = new self;
         $article->updateArticle($articleInput);
-        
+
         return $article;
     }
-    
+
     public function updateArticle(EditArticle $articleInput)
     {
         $this->path = $articleInput->path;
@@ -99,7 +117,16 @@ class Article
     {
         $this->path = $path;
     }
+    
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
 
+    public function setStatus(string $status)
+    {
+        $this->status = $status;
+    }
     /**
      * Set title
      *

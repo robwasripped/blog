@@ -15,10 +15,11 @@ use Doctrine\ORM\EntityRepository;
 use AppBundle\Form\EditArticleType;
 use AppBundle\Input\EditArticle;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Form\Form;
+use AppBundle\Model\ArticleManager;
+use Symfony\Component\Workflow\StateMachine;
 
 /**
  * Description of ArticleController
@@ -27,6 +28,16 @@ use Symfony\Component\Form\Form;
  */
 class ArticleController extends Controller
 {
+
+    /**
+     * @var StateMachine
+     */
+    private $articleStatusWorkflow;
+
+    public function __construct(StateMachine $articleStatusWorkflow)
+    {
+        $this->articleStatusWorkflow = $articleStatusWorkflow;
+    }
 
     /**
      * @Route(
@@ -52,23 +63,9 @@ class ArticleController extends Controller
     }
 
     /**
-     * @Route("admin/article/new", methods="GET", name="new_edit_article")
+     * @Route("admin/article/new", methods={"GET", "POST"}, name="new_article")
      */
-    public function createAction()
-    {
-        $editArticle = new EditArticle;
-
-        $editArticleForm = $this->createEditArticleForm($editArticle, $this->generateUrl('publish_article'));
-
-        return $this->render('admin/article/new.html.twig', [
-                    'editArticleForm' => $editArticleForm->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("admin/article", methods="POST", name="publish_article")
-     */
-    public function publishAction(Request $request, EntityManager $entityManager)
+    public function createAction(Request $request, ArticleManager $articleManager)
     {
         $editArticle = new EditArticle;
 
@@ -78,26 +75,37 @@ class ArticleController extends Controller
 
         if ($editArticleForm->isSubmitted() && $editArticleForm->isValid()) {
             $article = Article::createFromInput($editArticle);
-            $entityManager->persist($article);
+            $articleManager->updateArticle($article, $editArticleForm->getClickedButton()->getName());
 
-            $entityManager->flush();
-
-            return new RedirectResponse($this->generateUrl('get_edit_article', [
+            return new RedirectResponse($this->generateUrl('edit_article', [
                         'id' => $article->getId(),
             ]));
         }
+
+        return $this->render('admin/article/new.html.twig', [
+                    'editArticleForm' => $editArticleForm->createView(),
+        ]);
     }
 
     /**
-     * @Route("admin/article/{id}/edit", methods="GET", name="get_edit_article")
+     * @Route("admin/article/{id}/edit", methods={"GET", "POST"}, name="edit_article")
      */
-    public function editAction(Article $article)
+    public function editAction(Request $request, Article $article, ArticleManager $articleManager)
     {
         $editArticle = EditArticle::createFromArticle($article);
 
-        $editArticleForm = $this->createEditArticleForm($editArticle, $this->generateUrl('post_edit_article', [
-                    'id' => $article->getId(),
-        ]));
+        $editArticleForm = $this->createEditArticleForm($editArticle, $article);
+
+        $editArticleForm->handleRequest($request);
+
+        if ($editArticleForm->isSubmitted() && $editArticleForm->isValid()) {
+            $article->updateArticle($editArticle);
+            $articleManager->updateArticle($article, $editArticleForm->getClickedButton()->getName());
+
+            return new RedirectResponse($this->generateUrl('edit_article', [
+                        'id' => $article->getId(),
+            ]));
+        }
 
         return $this->render('admin/article/edit.html.twig', [
                     'article' => $article,
@@ -105,38 +113,34 @@ class ArticleController extends Controller
         ]);
     }
 
-    /**
-     * @Route("admin/article/{id}", methods="POST", name="post_edit_article")
-     */
-    public function updateAction(Request $request, Article $article, EntityManager $entityManager)
-    {
-        $editArticle = EditArticle::createFromArticle($article);
-
-        $editArticleForm = $this->createEditArticleForm($editArticle);
-
-        $editArticleForm->handleRequest($request);
-
-        if ($editArticleForm->isSubmitted() && $editArticleForm->isValid()) {
-            $article->updateArticle($editArticle);
-            $entityManager->persist($article);
-
-            $entityManager->flush();
-        }
-
-        return new RedirectResponse($this->generateUrl('get_edit_article', [
-                    'id' => $article->getId(),
-        ]));
-    }
-
-    private function createEditArticleForm(EditArticle $editArticle, string $action = null): Form
+    private function createEditArticleForm(EditArticle $editArticle, Article $article = null): Form
     {
         $options = [];
-        if ($action) {
-            $options['action'] = $action;
+
+        $enabledTransitions = [];
+
+        if ($article) {
+            $options['action'] = $this->generateUrl('edit_article', [
+                'id' => $article->getId()]);
+            
+            $enabledTransitions = $this->articleStatusWorkflow->getEnabledTransitions($article);
+        } else {
+            $options['action'] = $this->generateUrl('new_article');
+
+            $allTransitions = $this->articleStatusWorkflow->getDefinition()->getTransitions();
+            $initialPlace = $this->articleStatusWorkflow->getDefinition()->getInitialPlace();
+            
+            $enabledTransitions = array_filter($allTransitions, function($transition) use($initialPlace) {
+                return in_array($initialPlace, $transition->getFroms());
+            });
+            
         }
 
         $editArticleForm = $this->createForm(EditArticleType::class, $editArticle, $options);
-        $editArticleForm->add('submit', SubmitType::class);
+
+        foreach($enabledTransitions as $transition) {
+            $editArticleForm->add($transition->getName(), SubmitType::class);
+        }
 
         return $editArticleForm;
     }

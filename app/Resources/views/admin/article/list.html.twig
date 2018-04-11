@@ -1,21 +1,25 @@
 {% extends 'admin/base.html.twig' %}
 
 {% block body %}
-    <a href="{{ path("new_edit_article") }}">New Article</a>
+    <a href="{{ path("new_article") }}">New Article</a>
     
     <table>
         <thead>
             <tr>
                 <th>id</th>
                 <th>Title</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
         {% for article in articles %}
             <tr>
-                <td><a href="{{ path("get_edit_article", {"id": article.id}) }}">{{ article.id }}</a></td>
+                <td><a href="{{ path("edit_article", {"id": article.id}) }}">{{ article.id }}</a></td>
                 <td>{{ article.title }}</td>
-                <td><a href="{{ path("view_article", {"path": article.path}) }}">View</a></td>
+                <td>{{ article.status }}</td>
+                <td>
+                    <a href="{{ path("edit_article", {"id": article.id}) }}">Edit</a>
+                    <a href="{{ path("view_article", {"path": article.path}) }}">View</a></td>
             </tr>
         {% endfor %}
         </tbody>

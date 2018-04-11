@@ -30,12 +30,32 @@ framework:
     assets: ~
     php_errors:
         log: true
-
-# Twig Configuration
-twig:
-    debug: '%kernel.debug%'
-    strict_variables: '%kernel.debug%'
-
+    workflows:
+        article:
+            type: state_machine
+            marking_store:
+                type: single_state
+                arguments:
+                    - status
+            supports:
+                - AppBundle\Entity\Article
+            places: !php/const:AppBundle\Entity\Article::STATUSES
+            initial_place: !php/const:AppBundle\Entity\Article::STATUS_NEW
+            transitions:
+                draft:
+                    from:
+                        - !php/const:AppBundle\Entity\Article::STATUS_NEW
+                    to: !php/const:AppBundle\Entity\Article::STATUS_DRAFT
+                publish:
+                    from:
+                        - !php/const:AppBundle\Entity\Article::STATUS_NEW
+                        - !php/const:AppBundle\Entity\Article::STATUS_DRAFT
+                    to: !php/const:AppBundle\Entity\Article::STATUS_PUBLISHED
+                archive:
+                    from:
+                        - !php/const:AppBundle\Entity\Article::STATUS_DRAFT
+                        - !php/const:AppBundle\Entity\Article::STATUS_PUBLISHED
+                    to: !php/const:AppBundle\Entity\Article::STATUS_ARCHIVED
 # Doctrine Configuration
 doctrine:
     dbal:
