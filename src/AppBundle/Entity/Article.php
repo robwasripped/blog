@@ -15,11 +15,11 @@ use AppBundle\Input\EditArticle;
  */
 class Article
 {
+
     const STATUS_NEW = 'new';
     const STATUS_DRAFT = 'draft';
     const STATUS_PUBLISHED = 'published';
     const STATUS_ARCHIVED = 'archived';
-    
     const STATUSES = [
         self::STATUS_NEW,
         self::STATUS_DRAFT,
@@ -42,7 +42,7 @@ class Article
      * @ORM\Column(name="path", type="string", length=255)
      */
     private $path;
-    
+
     /**
      * @var string
      * 
@@ -56,6 +56,13 @@ class Article
      * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
+
+    /**
+     * @var string
+     * 
+     * @ORM\Column(name="summary", type="string", length=255)
+     */
+    private $summary;
 
     /**
      * @var string
@@ -96,6 +103,7 @@ class Article
         $this->path = $articleInput->path;
         $this->title = $articleInput->title;
         $this->content = $articleInput->content;
+        $this->summary = $articleInput->summary;
     }
 
     /**
@@ -117,7 +125,7 @@ class Article
     {
         $this->path = $path;
     }
-    
+
     public function getStatus(): string
     {
         return $this->status;
@@ -127,6 +135,7 @@ class Article
     {
         $this->status = $status;
     }
+
     /**
      * Set title
      *
@@ -149,6 +158,16 @@ class Article
     public function getTitle()
     {
         return $this->title;
+    }
+
+    public function getSummary()
+    {
+        return $this->summary;
+    }
+
+    public function setSummary(?string $summary)
+    {
+        $this->summary = $summary;
     }
 
     /**

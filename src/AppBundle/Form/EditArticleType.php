@@ -26,6 +26,7 @@ class EditArticleType extends AbstractType
     {
         $builder->add('path', Type\TextType::class)
                 ->add('title', Type\TextType::class)
+                ->add('summary', Type\TextareaType::class)
                 ->add('content', Type\TextareaType::class);
     }
 

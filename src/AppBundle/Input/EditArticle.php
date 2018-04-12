@@ -21,6 +21,7 @@ class EditArticle
 
     public $path;
     public $title;
+    public $summary;
     public $content;
 
     public static function createFromArticle(Article $article): self
@@ -28,6 +29,7 @@ class EditArticle
         $editArticle = new self;
         $editArticle->path = $article->getPath();
         $editArticle->title = $article->getTitle();
+        $editArticle->summary = $article->getSummary();
         $editArticle->content = $article->getContent();
 
         return $editArticle;

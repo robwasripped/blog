@@ -4,6 +4,7 @@
     {% for article in articles %}
         <article>
             <h1>{{ article.title }}</h1>
+            <p>{{ article.summary ?: article.content|striptags|slice(0, 127) }}</p>
             <a href="{{ path("view_article", {"path": article.path}) }}">view</a>
         </article>
     {% endfor %}
