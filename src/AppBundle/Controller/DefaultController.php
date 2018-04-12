@@ -11,23 +11,13 @@ use AppBundle\Entity\Article;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/",
-     *  name="homepage",
-     *  requirements = {
-     *      "page": "\d+",
-     *      "per_page": "\d+"
-     *  },
-     *  defaults = {
-     *      "page": 1,
-     *      "per_page": 30
-     *  }
-     * )
+     * @Route("/", name="homepage")
      */
-    public function indexAction(Request $request, int $page, int $per_page, EntityRepository $articleRepository)
+    public function indexAction(Request $request, EntityRepository $articleRepository)
     {
         $articles = $articleRepository->findBy([
             'status' => Article::STATUS_PUBLISHED,
-        ], null, $per_page, $page - 1);
+        ], null, $request->query->getInt('per_page', 10), $request->query->getInt('page', 1) - 1);
         
         return $this->render('default/index.html.twig', [
             'articles' => $articles,
