@@ -28,6 +28,7 @@ use Symfony\Component\Workflow\StateMachine;
  */
 class ArticleController extends Controller
 {
+    private const BUTTON_SAVE  = 'save';
 
     /**
      * @var StateMachine
@@ -75,14 +76,17 @@ class ArticleController extends Controller
 
         if ($editArticleForm->isSubmitted() && $editArticleForm->isValid()) {
             $article = Article::createFromInput($editArticle);
-            $articleManager->updateArticle($article, $editArticleForm->getClickedButton()->getName());
+
+            $clickedButton = $editArticleForm->getClickedButton()->getName();
+            $updatedStatus = $clickedButton === self::BUTTON_SAVE ? null : $clickedButton;
+            $articleManager->updateArticle($article, $updatedStatus);
 
             return new RedirectResponse($this->generateUrl('edit_article', [
                         'id' => $article->getId(),
             ]));
         }
 
-        return $this->render('admin/article/new.html.twig', [
+        return $this->render('admin/article/edit.html.twig', [
                     'editArticleForm' => $editArticleForm->createView(),
         ]);
     }
@@ -100,7 +104,10 @@ class ArticleController extends Controller
 
         if ($editArticleForm->isSubmitted() && $editArticleForm->isValid()) {
             $article->updateArticle($editArticle);
-            $articleManager->updateArticle($article, $editArticleForm->getClickedButton()->getName());
+
+            $clickedButton = $editArticleForm->getClickedButton()->getName();
+            $updatedStatus = $clickedButton === self::BUTTON_SAVE ? null : $clickedButton;
+            $articleManager->updateArticle($article, $updatedStatus);
 
             return new RedirectResponse($this->generateUrl('edit_article', [
                         'id' => $article->getId(),
@@ -137,6 +144,7 @@ class ArticleController extends Controller
         }
 
         $editArticleForm = $this->createForm(EditArticleType::class, $editArticle, $options);
+        $editArticleForm->add(self::BUTTON_SAVE, SubmitType::class);
 
         foreach($enabledTransitions as $transition) {
             $editArticleForm->add($transition->getName(), SubmitType::class);

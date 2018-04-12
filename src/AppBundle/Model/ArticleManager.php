@@ -35,21 +35,22 @@ class ArticleManager
         $this->articleStatusWorkflow = $articleStatusWorkflow;
         $this->entityManager = $entityManager;
     }
-    
-    public function updateArticle(Article $article, string $status)
+
+    public function updateArticle(Article $article, ?string $status = null)
     {
-        $this->articleStatusWorkflow->apply($article, $status);
-        
+        if ($status) {
+            $this->articleStatusWorkflow->apply($article, $status);
+        }
+
         $this->entityManager->persist($article);
         $this->entityManager->flush();
     }
-    
+
     public function updateDraft(Article $article)
     {
         return $this->updateArticle($article, 'draft');
-        
     }
-    
+
     public function updatePublished(Article $article)
     {
         return $this->updateArticle($article, 'published');

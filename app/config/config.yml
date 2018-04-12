@@ -40,15 +40,10 @@ framework:
             supports:
                 - AppBundle\Entity\Article
             places: !php/const:AppBundle\Entity\Article::STATUSES
-            initial_place: !php/const:AppBundle\Entity\Article::STATUS_NEW
+            initial_place: !php/const:AppBundle\Entity\Article::STATUS_DRAFT
             transitions:
-                draft:
-                    from:
-                        - !php/const:AppBundle\Entity\Article::STATUS_NEW
-                    to: !php/const:AppBundle\Entity\Article::STATUS_DRAFT
                 publish:
                     from:
-                        - !php/const:AppBundle\Entity\Article::STATUS_NEW
                         - !php/const:AppBundle\Entity\Article::STATUS_DRAFT
                     to: !php/const:AppBundle\Entity\Article::STATUS_PUBLISHED
                 archive:

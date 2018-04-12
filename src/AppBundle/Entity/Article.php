@@ -16,12 +16,10 @@ use AppBundle\Input\EditArticle;
 class Article
 {
 
-    const STATUS_NEW = 'new';
     const STATUS_DRAFT = 'draft';
     const STATUS_PUBLISHED = 'published';
     const STATUS_ARCHIVED = 'archived';
     const STATUSES = [
-        self::STATUS_NEW,
         self::STATUS_DRAFT,
         self::STATUS_PUBLISHED,
         self::STATUS_ARCHIVED,
@@ -48,7 +46,7 @@ class Article
      * 
      * @ORM\Column(name="status", type="string", length=16)
      */
-    private $status = self::STATUS_NEW;
+    private $status = self::STATUS_DRAFT;
 
     /**
      * @var string
