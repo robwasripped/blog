@@ -42,7 +42,7 @@ class ArticleController extends Controller
 
     /**
      * @Route(
-     *  "/admin/articles",
+     *  "/articles",
      *  name="admin_list_articles",
      *  requirements = {
      *      "page": "\d+",
@@ -64,7 +64,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * @Route("admin/article/new", methods={"GET", "POST"}, name="new_article")
+     * @Route("/article/new", methods={"GET", "POST"}, name="new_article")
      */
     public function createAction(Request $request, ArticleManager $articleManager)
     {
@@ -92,7 +92,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * @Route("admin/article/{id}/edit", methods={"GET", "POST"}, name="edit_article")
+     * @Route("/article/{id}/edit", methods={"GET", "POST"}, name="edit_article")
      */
     public function editAction(Request $request, Article $article, ArticleManager $articleManager)
     {

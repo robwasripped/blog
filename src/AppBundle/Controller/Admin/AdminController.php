@@ -20,10 +20,10 @@ class AdminController extends Controller
 {
     /**
      * 
-     * @Route("/admin")
+     * @Route("", name="admin_dashboard")
      */
     public function dashboardAction()
     {
-        
+        return $this->render('admin/dashboard.html.twig');
     }
 }
