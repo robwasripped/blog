@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/compiled/admin/root.css') }}" />
+{% endblock %}
+
+{% block body %}
+    <nav>
+        <section id="nav-main">
+            <a href="{{ path('admin_dashboard') }}">Dashboard</a>
+            <a href="{{ path('homepage') }}">View Site</a>
+        </section>
+        <section id="nav-articles">
+            <a href="{{ path('admin_list_articles') }}">Articles</a>
+        </section>
+    </nav>
+    <section id="content">
+        {% block content %}{% endblock %}
+    </section>
+{% endblock %}

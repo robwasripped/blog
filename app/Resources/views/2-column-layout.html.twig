@@ -4,9 +4,14 @@
     <header>
         <h1><a href="{{ path('homepage') }}">Robert Treacy</a></h1>
         <nav>
+            <a href="{{ path('homepage') }}">Home</a>
+            <a href="{{ asset('id_rsa.pub') }}">Public Key</a>
         </nav>
     </header>
     <section>
         {% block content %}{% endblock %}
     </section>
+    <footer>
+        <p>Yours Sincerely, Rob Treacy</p>
+    </footer>
 {% endblock %}

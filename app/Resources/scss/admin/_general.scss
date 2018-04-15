@@ -1,0 +1,17 @@
+$light-primary: hsl(44, 42%, 85%);
+$dark-primary: hsl(195, 72%, 15%);
+
+html {
+    height: 100%;
+}
+
+body {
+    background-color: $light-primary;
+    margin: 0;
+    min-height: 100%;
+}
+
+nav {
+    background-color: $dark-primary;
+    color: $light-primary;
+}

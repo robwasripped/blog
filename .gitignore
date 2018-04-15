@@ -3,3 +3,4 @@ var
 phpunit.xml
 /app/bootstrap.php.cache
 /app/config/parameters.yml
+/web/css/compiled/

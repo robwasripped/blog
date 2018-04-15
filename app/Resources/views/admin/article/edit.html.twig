@@ -1,8 +1,8 @@
-{% extends 'admin/base.html.twig' %}
+{% extends 'admin/2-column-layout.html.twig' %}
 
 {% block title %}#{{ article.id|default('new') }} | Edit{% endblock %}
 
-{% block body %}
+{% block content %}
     <a href="{{ path("admin_list_articles") }}">Cancel</a>
     <article>
         <dl>

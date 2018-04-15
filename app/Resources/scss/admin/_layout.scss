@@ -1,0 +1,25 @@
+body {
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: stretch;
+    align-items: stretch;
+}
+
+nav {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 100px;
+}
+
+#content {
+    flex-grow: 8;
+    flex-shrink: 1;
+    flex-basis: 400px;
+}
+
+nav,
+#content {
+    padding: 1em;
+}
