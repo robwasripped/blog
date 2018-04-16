@@ -1,0 +1,12 @@
+%table {
+    width: 100%;
+    
+    thead th {
+        border-bottom: 2px solid $dark-primary;
+        /*color: $light-primary;*/
+    }
+    
+    th {
+        text-align: left;
+    }
+}
