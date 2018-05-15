@@ -3,8 +3,8 @@
 {% block title %}#{{ article.id|default('new') }} | Edit{% endblock %}
 
 {% block content %}
-    <a href="{{ path("admin_list_articles") }}">Cancel</a>
     <article>
+        <a href="{{ path("admin_list_articles") }}">Cancel</a>
         <dl>
             <dt>ID</dt>
             <dd>{{ article.id }}</dd>

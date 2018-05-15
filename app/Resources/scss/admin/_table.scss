@@ -1,12 +1,39 @@
 %table {
     width: 100%;
-    
-    thead th {
-        border-bottom: 2px solid $dark-primary;
-        /*color: $light-primary;*/
+    margin: 1em 0;
+    border-spacing: 0 1px;
+    border: solid $light-primary-shadowing;
+    border-width: 1px 0;
+    background-color: $light-primary-shadowing;
+    font-size: 0.75em;
+
+    tr {
+        background-color: hsl(0, 100%, 100%);
     }
     
     th {
         text-align: left;
+        color: $light-text;
+        font-weight: normal;
+    }
+
+    th, td {
+        padding: 1em;
+    }
+    
+    a {
+        text-decoration: none;
+        
+        &:visited {
+            color: inherit;
+        }
+    }
+    
+    tbody tr:hover {
+        background-color: $light-primary-shadowing + hsl(0, 0%, 3%);
+    }
+    
+    .row-controls a {
+        @extend %action-link;
     }
 }

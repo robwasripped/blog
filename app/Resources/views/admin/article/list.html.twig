@@ -10,6 +10,7 @@
                     <th>id</th>
                     <th>Title</th>
                     <th>Status</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -18,7 +19,7 @@
                         <td><a href="{{ path("edit_article", {"id": article.id}) }}">{{ article.id }}</a></td>
                         <td>{{ article.title }}</td>
                         <td>{{ article.status }}</td>
-                        <td>
+                        <td class="row-controls">
                             <a href="{{ path("edit_article", {"id": article.id}) }}">Edit</a>
                             <a href="{{ path("view_article", {"path": article.path}) }}">View</a></td>
                     </tr>

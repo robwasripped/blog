@@ -1,6 +1,21 @@
 {% extends 'admin/2-column-layout.html.twig' %}
 
 {% block content %}
-    <h1>Admin Dashboard</h1>
-    <p>You are logged in as {{ app.user.username }}</p>
+    <article>
+        <h1>Admin Dashboard</h1>
+        
+        <p>You are logged in as {{ app.user.username }}</p>
+
+        <h2>Second Header</h2>
+        <p>This is a larger paragraph of sample text. This paragraph has been
+            explicitly written so that it takes up many more lines on the screen
+            to form a better visual of what a real paragraph might look like.
+            There isn't much in the way of content in this text so reading it in
+            any detail is not recommended, however it can be done for a comedic
+            effect. As you should probably have grasped by now, my sense of
+            humour lacks drastically and it's not recommended to anyone with a
+            heart problem.</p>
+        <p>This paragraph is following immediately after the previous. This will
+            allow the spacing between paragraphs to be seen.</p>
+    </article>
 {% endblock %}
