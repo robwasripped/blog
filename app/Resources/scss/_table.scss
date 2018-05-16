@@ -30,7 +30,7 @@
     }
     
     tbody tr:hover {
-        background-color: $light-primary-shadowing + hsl(0, 0%, 3%);
+        background-color: lighten($light-primary-shadowing, 3%);
     }
     
     .row-controls a {

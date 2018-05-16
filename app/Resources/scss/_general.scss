@@ -16,24 +16,32 @@ body {
     min-height: 100%;
 }
 
-nav {
+header {
     background-color: $dark-primary;
     color: $light-primary;
 }
 
-%article {
+%content-box {
     background-color: hsl(0, 100%, 100%);
-    margin: 1em auto;
     padding: 2em;
-    width: 100%;
-    max-width: 800px;
     box-sizing: border-box;
     border-radius: 0.25em;
     box-shadow: 0 0.25em 5px 2px hsla(0,0%,0%, 0.25);
+}
+
+%single-column-article {
+    @extend %content-box;
+    margin: 1em auto 4em;
+    width: 100%;
+    max-width: 800px;
+}
+
+%article {
+    @extend %single-column-article;
     
     /* A singular article should take up all the available space of the parent */
     &:first-of-type:last-of-type {
-        height: calc(100% - 2em);
+        height: calc(100% - 7em);
     }
     
     h1 {

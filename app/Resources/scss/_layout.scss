@@ -7,7 +7,7 @@ body {
     align-items: stretch;
 }
 
-nav {
+header {
     flex-grow: 1;
     flex-shrink: 1;
     flex-basis: 100px;
@@ -19,7 +19,11 @@ nav {
     flex-basis: 400px;
 }
 
-nav,
+footer {
+    width: 100%;
+}
+
+header,
 #content {
-    padding: 1em;
+    padding: 1em 1em 0;
 }
