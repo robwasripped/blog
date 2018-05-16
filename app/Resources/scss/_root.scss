@@ -1,0 +1,13 @@
+@import "_general.scss";
+@import "_typography.scss";
+@import "_layout.scss";
+@import "_nav.scss";
+@import "_table.scss";
+
+table {
+    @extend %table;
+}
+
+article {
+    @extend %article;
+}

@@ -1,27 +1,30 @@
-{% extends 'admin/base.html.twig' %}
+{% extends 'admin/admin-layout.html.twig' %}
 
-{% block body %}
-    <a href="{{ path("new_article") }}">New Article</a>
-    
-    <table>
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>Title</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for article in articles %}
-            <tr>
-                <td><a href="{{ path("edit_article", {"id": article.id}) }}">{{ article.id }}</a></td>
-                <td>{{ article.title }}</td>
-                <td>{{ article.status }}</td>
-                <td>
-                    <a href="{{ path("edit_article", {"id": article.id}) }}">Edit</a>
-                    <a href="{{ path("view_article", {"path": article.path}) }}">View</a></td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+{% block content %}
+    <article>
+        <a href="{{ path("new_article") }}">New Article</a>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for article in articles %}
+                    <tr>
+                        <td><a href="{{ path("edit_article", {"id": article.id}) }}">{{ article.id }}</a></td>
+                        <td>{{ article.title }}</td>
+                        <td>{{ article.status }}</td>
+                        <td class="row-controls">
+                            <a href="{{ path("edit_article", {"id": article.id}) }}">Edit</a>
+                            <a href="{{ path("view_article", {"path": article.path}) }}">View</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </article>
 {% endblock %}

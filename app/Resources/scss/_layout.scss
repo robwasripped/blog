@@ -1,0 +1,29 @@
+body {
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: stretch;
+    align-items: stretch;
+}
+
+header {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 100px;
+}
+
+#content {
+    flex-grow: 8;
+    flex-shrink: 1;
+    flex-basis: 400px;
+}
+
+footer {
+    width: 100%;
+}
+
+header,
+#content {
+    padding: 1em 1em 0;
+}

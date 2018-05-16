@@ -1,0 +1,11 @@
+p {
+    line-height: 1.65em;
+    margin-bottom: 2em;
+}
+
+%action-link {
+    
+    &::after {
+        content: " 🡪";
+    }
+}

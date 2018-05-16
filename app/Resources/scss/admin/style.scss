@@ -1,0 +1,23 @@
+@import "../_root.scss";
+
+.article-metadata {
+    font-size: small;
+    border-bottom: 1px solid $light-primary-shadowing;
+
+    dd, dt {
+        display: inline;
+        margin: 0;
+    }
+
+    dt {
+        color: $light-text;
+
+        &::after {
+            content: ":";
+        }
+    }
+
+    dd {
+        margin-right: 2em;
+    }
+}
