@@ -1,11 +1,17 @@
 {% extends 'admin/admin-layout.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/trumbowyg.min.css') }}" />
+{% endblock %}
+
 {% block title %}#{{ article.id|default('new') }} | Edit{% endblock %}
 
 {% block content %}
+    {{ form_start(editArticleForm) }}
     <article>
         <a href="{{ path("admin_list_articles") }}">Cancel</a>
-        <dl>
+        <dl class="article-metadata">
             <dt>ID</dt>
             <dd>{{ article.id }}</dd>
             <dt>Status</dt>
@@ -13,6 +19,22 @@
             <dt>Created</dt>
             <dd>{{ article.createdAt|date('d/m/Y g:ia') }}
         </dl>
-        {{ form(editArticleForm) }}
+
+        {{ form_row(editArticleForm.path) }}
+        {{ form_row(editArticleForm.summary) }}
     </article>
+    <article>
+        {{ form_widget(editArticleForm.title) }}
+        {{ form_widget(editArticleForm.content) }}
+
+    </article>
+    {{ form_end(editArticleForm) }}
+{% endblock %}
+
+{% block javascripts %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="{{ asset("js/trumbowyg.min.js") }}"></script>
+    <script>
+        $('#edit_article_content').trumbowyg();
+    </script>
 {% endblock %}
