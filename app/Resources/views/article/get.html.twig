@@ -3,6 +3,8 @@
 {% block title %}{{ article.title }}{% endblock %}
 
 {% block content %}
-<h1>{{ article.title }}</h1>
-{{ article.content|raw }}
+    <article>
+        <h1>{{ article.title }}</h1>
+        {{ article.content|raw }}
+    </article>
 {% endblock %}
