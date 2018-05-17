@@ -1,8 +1,8 @@
 {% extends 'admin/admin-layout.html.twig' %}
 
 {% block stylesheets %}
-    {{ parent() }}
     <link rel="stylesheet" href="{{ asset('css/trumbowyg.min.css') }}" />
+    {{ parent() }}
 {% endblock %}
 
 {% block title %}#{{ article.id|default('new') }} | Edit{% endblock %}

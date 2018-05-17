@@ -21,3 +21,18 @@
         margin-right: 2em;
     }
 }
+
+.trumbowyg-box {
+    border: none;
+    position: static;
+}
+
+.trumbowyg-button-pane {
+    position: sticky;
+    top: 0;
+}
+
+.trumbowyg-editor {
+    padding: 0;
+    height: auto !important;
+}
