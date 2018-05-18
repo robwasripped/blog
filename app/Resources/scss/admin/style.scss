@@ -36,3 +36,7 @@
     padding: 0;
     height: auto !important;
 }
+
+#edit_article_title {
+    @extend %title;
+}

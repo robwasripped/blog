@@ -4,8 +4,16 @@ p {
 }
 
 %action-link {
-    
+
     &::after {
         content: " 🡪";
     }
+}
+
+%title {
+    font-weight: lighter;
+    font-size: 2em;
+    background: none;
+    border: none;
+    margin: 1em 0;
 }

@@ -1,5 +1,15 @@
 @import "../_root.scss";
 
+header h1 a {
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    
+    &:visited {
+        color: inherit;
+    }
+}
+
 #content {
     position: relative;
 }
@@ -16,7 +26,7 @@ footer {
     position: absolute;
     bottom: 0;
     right: 5em;
-    
+
     p {
         margin: 0;
     }
