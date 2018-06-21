@@ -38,12 +38,12 @@ header {
 
 %article {
     @extend %single-column-article;
-    
+
     /* A singular article should take up all the available space of the parent */
     &:first-of-type:last-of-type {
         height: calc(100% - 7em);
     }
-    
+
     h1 {
         @extend %title;
     }

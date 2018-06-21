@@ -4,7 +4,8 @@
     font-size: small;
     border-bottom: 1px solid $light-primary-shadowing;
 
-    dd, dt {
+    dd,
+    dt {
         display: inline;
         margin: 0;
     }
@@ -39,4 +40,11 @@
 
 #edit_article_title {
     @extend %title;
+}
+
+#edit_article_summary {
+    font-family: inherit;
+    display: block;
+    border: none;
+    color: inherit;
 }

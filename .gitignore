@@ -1,6 +1,7 @@
 vendor
 var
 phpunit.xml
+/.sass-cache
 /app/bootstrap.php.cache
 /app/config/parameters.yml
 /web/css/compiled/
