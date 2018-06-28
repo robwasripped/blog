@@ -1,6 +1,7 @@
 vendor
 var
 phpunit.xml
+docker-compose.yml
 /.sass-cache
 /app/bootstrap.php.cache
 /app/config/parameters.yml
